@@ -1,15 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { PlusIcon } from "@phosphor-icons/react";
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { experience } from "@/content/experience";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Terminal, TerminalLine } from "@/components/ui/terminal";
 
 export function Experience() {
   const reduce = useReducedMotion();
-  const [expanded, setExpanded] = useState<string | null>(experience[0]?.id ?? null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -47,7 +45,6 @@ export function Experience() {
 
           {experience.map((role, i) => {
             const current = role.end === "present";
-            const isOpen = expanded === role.id;
 
             return (
               <motion.div
@@ -72,63 +69,36 @@ export function Experience() {
                 </p>
 
                 <div>
-                  <button
-                    type="button"
-                    onClick={() => setExpanded(isOpen ? null : role.id)}
-                    aria-expanded={isOpen}
-                    className="group flex w-full items-start justify-between gap-4 text-left"
-                  >
-                    <div>
-                      <h3 className="text-xl font-medium tracking-tight text-foreground uppercase">
-                        {role.role}
-                      </h3>
-                      <p className="mt-1 font-mono text-xs tracking-[0.08em] text-foreground-muted uppercase">
-                        {role.company}
-                      </p>
-                    </div>
-                    <PlusIcon
-                      size={16}
-                      className={`mt-1.5 shrink-0 text-foreground-muted transition-transform duration-300 group-hover:text-accent ${
-                        isOpen ? "rotate-45" : ""
-                      }`}
-                    />
-                  </button>
+                  <h3 className="text-xl font-medium tracking-tight text-foreground uppercase">
+                    {role.role}
+                  </h3>
+                  <p className="mt-1 font-mono text-xs tracking-[0.08em] text-foreground-muted uppercase">
+                    {role.company}
+                  </p>
 
                   <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground-muted">
                     {role.summary}
                   </p>
 
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={reduce ? false : { height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                        className="overflow-hidden"
+                  <ul className="mt-4 space-y-2">
+                    {role.points.map((point) => (
+                      <li
+                        key={point}
+                        className="flex gap-3 text-sm leading-relaxed text-foreground-muted"
                       >
-                        <ul className="mt-4 space-y-2">
-                          {role.points.map((point) => (
-                            <li
-                              key={point}
-                              className="flex gap-3 text-sm leading-relaxed text-foreground-muted"
-                            >
-                              <span className="mt-2 h-[3px] w-[3px] shrink-0 bg-accent" />
-                              {point}
-                            </li>
-                          ))}
-                        </ul>
-                        <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-[11px] text-foreground-muted">
-                          {role.tags.map((tag, idx) => (
-                            <span key={tag} className="flex items-center gap-3">
-                              {tag}
-                              {idx < role.tags.length - 1 && <span className="text-border">/</span>}
-                            </span>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                        <span className="mt-2 h-[3px] w-[3px] shrink-0 bg-accent" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-[11px] text-foreground-muted">
+                    {role.tags.map((tag, idx) => (
+                      <span key={tag} className="flex items-center gap-3">
+                        {tag}
+                        {idx < role.tags.length - 1 && <span className="text-border">/</span>}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             );

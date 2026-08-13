@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/content/projects";
 
+export const dynamic = "force-static";
+
 const siteUrl = "https://fauzanabyandani.dev";
 
 export default function sitemap(): MetadataRoute.Sitemap {
