@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local staging assets (not part of the site, may contain confidential material)
+/src/lib/image/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
