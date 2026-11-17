@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import type { Project } from "@/content/projects";
+import { ArrowLink } from "@/components/ui/arrow-link";
 
 export function ProjectRow({ project, index }: { project: Project; index: number }) {
   const reduce = useReducedMotion();
@@ -36,6 +37,11 @@ export function ProjectRow({ project, index }: { project: Project; index: number
             </span>
           ))}
         </div>
+        {project.url && (
+          <ArrowLink href={project.url} external className="mt-5">
+            {project.url.replace(/^https?:\/\//, "")}
+          </ArrowLink>
+        )}
       </div>
 
       <div className="hidden items-start justify-end pt-2 lg:flex">

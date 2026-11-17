@@ -19,6 +19,7 @@ export type Project = {
   technologies: string[];
   year: string;
   confidential?: boolean;
+  url?: string;
   caseStudy?: CaseStudy;
   diagram?: string[];
   frame?: "wide" | "phone";
@@ -213,6 +214,20 @@ export const projects: Project[] = [
       "The Android companion application for Atlas Marketplace, built with Flutter and connected to the same Laravel backend.",
     contribution: "Mobile application development using Flutter, integrated with a Laravel PHP backend.",
     technologies: ["Flutter", "Dart", "Laravel", "PHP"],
+  },
+  {
+    slug: "cogculus",
+    number: "08",
+    name: "Cogculus",
+    category: "Personal Project / Web Application",
+    featured: false,
+    year: "2026",
+    url: "https://cogculus.vercel.app",
+    description:
+      "A fixed gear ratio calculator: gear inches, development, speed and skid patches for any chainring and cog, with A/B comparison, a skid patch matrix, a cadence chart and a saved-setups garage.",
+    contribution:
+      "Designed and built end to end: React frontend, Go ratio API, and deployment on Vercel.",
+    technologies: ["React", "Vite", "Go", "Material Web", "Vercel"],
   },
 ];
 
